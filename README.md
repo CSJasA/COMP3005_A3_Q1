@@ -19,4 +19,4 @@ To run the application:
 - Follow the prompts in the terminal to perform CRUD operations on the database.
 - To exit, type "5"
 
-Video Link: 
+Video Link: https://youtu.be/QShYtDsru4Y

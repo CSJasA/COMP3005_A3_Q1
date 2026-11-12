@@ -74,7 +74,7 @@ def getAllStudents(cursor):
     print("\n===== STUDENTS =====")
 
     for student in students:
-        print(student+"\n")
+        print(student)
 
 # Adds a student
 def addStudents(conn, cursor, first_name, last_name, email, enrollment_date):
