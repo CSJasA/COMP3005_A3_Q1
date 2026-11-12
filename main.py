@@ -5,6 +5,7 @@ import psycopg2 #Python Postgres database adapter and driver
 
 # Connects to local Postgres database
 def connectDatabase():
+    # This is where you will input your database connection informations
     return psycopg2.connect(host="localhost", database="postgres", user="postgres", password="Bunny0624", port="5432")
 
 # Opens sql files
@@ -16,6 +17,7 @@ def load_sql_file(filepath):
 def initialize_database(conn, cursor):
 
     #Check if the database already exists
+    # Select from the information schema to check if the table, 'students' exists
     cursor.execute("""
         SELECT EXISTS (
             SELECT FROM information_schema.tables
@@ -46,6 +48,7 @@ def initialize_database(conn, cursor):
             TRUNCATE TABLE students
             RESTART IDENTITY;
         """)
+        # We use TRUNCATE to remove ALL data from the table and RESTART to reset the auto-incrementing primary key.
 
         conn.commit()
 
@@ -64,6 +67,7 @@ def getAllStudents(cursor):
         FROM students
         ORDER BY student_id;
     """)
+    # Select alll(*) students by order of their id
 
     students = cursor.fetchall()
 
@@ -81,6 +85,7 @@ def addStudents(conn, cursor, first_name, last_name, email, enrollment_date):
         VALUES (%s, %s, %s, %s);
     """,
     (first_name, last_name, email, enrollment_date ))
+    # Insert the student into the database with the given information
 
     conn.commit()
 
@@ -95,6 +100,7 @@ def updateStudentEmail(conn, cursor, student_id, new_email):
         WHERE student_id = %s;
     """,
     (new_email, student_id))
+    #Update the student's email in the database with the given student id and new email
 
     conn.commit()
 
@@ -108,6 +114,7 @@ def deleteStudent(conn, cursor, student_id):
         WHERE student_id = %s;
     """,
     (student_id,))
+    #Delete the student from the database with the given student id
 
     conn.commit()
 
